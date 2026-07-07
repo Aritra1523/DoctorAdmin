@@ -209,7 +209,7 @@ const Sidebar = () => {
         </nav>
 
         {/* User Profile (bottom) */}
-        {/* <div style={styles.userProfile}>
+        <div style={styles.userProfile}>
           <div style={styles.avatar}>
             <span style={styles.avatarText}>JD</span>
           </div>
@@ -217,7 +217,7 @@ const Sidebar = () => {
             <p style={styles.userName}>John Doe</p>
             <p style={styles.userRole}>Admin</p>
           </div>
-        </div> */}
+        </div>
         <button
           onClick={() => {
             /* handle logout */

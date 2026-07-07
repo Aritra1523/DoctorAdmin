@@ -20,4 +20,6 @@ export const endpoints = {
   appointmentList: "appointment/list",
   doctorAppointment: "/admin/doctor/appointment",
   cancelAppointment: "/admin/doctor/appointment/cancelld",
+
+  acceptedlist:"/admin/appointment/acceptedlist"
 };
