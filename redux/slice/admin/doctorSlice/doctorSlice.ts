@@ -185,13 +185,13 @@ const doctorSlice = createSlice({
         if (updatedDoctor) {
           // Update in the doctors list
           const index = state.doctors.findIndex(
-            (doc) => doc.id === updatedDoctor.id,
+            (doc) => doc._id === updatedDoctor.id,
           );
           if (index !== -1) {
             state.doctors[index] = updatedDoctor;
           }
           // Update the single doctor if it's currently being viewed
-          if (state.doctor && state.doctor.id === updatedDoctor.id) {
+          if (state.doctor && state.doctor._id === updatedDoctor.id) {
             state.doctor = updatedDoctor;
           }
         }
@@ -213,8 +213,8 @@ const doctorSlice = createSlice({
         state.success = true;
         // Remove the deleted doctor from the list using the id from the action meta
         const deletedId = action.meta.arg; // the id passed to the thunk
-        state.doctors = state.doctors.filter((doc) => doc.id !== deletedId);
-        if (state.doctor && state.doctor.id === deletedId) {
+        state.doctors = state.doctors.filter((doc) => doc._id !== deletedId);
+        if (state.doctor && state.doctor._id === deletedId) {
           state.doctor = null;
         }
       })

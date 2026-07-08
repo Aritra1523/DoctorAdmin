@@ -8,11 +8,9 @@ import EditDoctorForm from "./EditDoctorForm";
 import Modal from "../shared/Model";
 import DoctorAdd from "./DoctorAdd";
 import useDeleteDoctor from "@/customHooks/doctor/useDeleteDoctor";
-import axiosInstance from "@/api/baseURL/baseurl";
-import axios from "axios";
+
 import useDepartmentList from "@/customHooks/Department/useDepartmentList";
-// If you have a delete hook, import it here:
-// import useDoctorDelete from "@/customHooks/doctor/useDoctorDelete";
+
 
 const ACCENT_COLORS = [
   "#3b82f6",
@@ -100,8 +98,7 @@ const DoctorList = () => {
   const [editDoctor, setEditDoctor] = useState<Doctor | null>(null);
   const [showAdd, setShowAdd] = useState(false);
 
-  // Uncomment if you have the delete hook:
-  // const { handleDelete } = useDeleteDoctor();
+  const { handleDelete } = useDeleteDoctor();
   const { departments, loading: deptLoading } = useDepartmentList();
   const departmentMap = useMemo(() => {
     return new Map(departments.map((dept) => [dept._id, dept.name]));
@@ -114,28 +111,7 @@ const DoctorList = () => {
     [doctors, search],
   );
 
-  const handleDelete = async (id: string) => {
-    if (!window.confirm("Are you sure you want to delete this doctor?")) return;
-
-    try {
-      const response = await axiosInstance.post("/admin/doctor/delete", { id });
-
-      // Success
-      console.log("Delete successful:", response.data);
-      alert("Doctor deleted successfully");
-
-      // Refresh your doctor list (e.g., fetchDoctors() or update state)
-      //fetchDoctors(); // or setDoctors(prev => prev.filter(doc => doc.id !== id));
-    } catch (err) {
-      // Handle errors gracefully
-      if (axios.isAxiosError(err)) {
-        const message = err.response?.data?.message || err.message;
-        alert(`Failed to delete doctor: ${message}`);
-      } else {
-        alert("Failed to delete doctor");
-      }
-    }
-  };
+ 
 
   if (loading)
     return (

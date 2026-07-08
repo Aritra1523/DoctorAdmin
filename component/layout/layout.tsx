@@ -1,9 +1,17 @@
+
+
 "use client";
 
 import Sidebar from "@/component/Sidebar/Sidebar";
 import { usePathname } from "next/navigation";
 
-const HIDDEN_ROUTES = ["/auth/login"];
+
+const ADMIN_ROUTE_PREFIXES = [
+  "/dashbord",
+  "/doctors",
+  "/appointments",
+  "/deperatments",
+];
 
 export default function ConditionalLayout({
   children,
@@ -12,12 +20,16 @@ export default function ConditionalLayout({
 }) {
   const pathname = usePathname();
 
-  const hideLayout = HIDDEN_ROUTES.includes(pathname);
+  const isAdminRoute = ADMIN_ROUTE_PREFIXES.some((prefix) =>
+    pathname.startsWith(prefix)
+  );
 
   return (
     <div className="flex min-h-screen">
-      {!hideLayout && <Sidebar />}
-      <main className="flex-1 p-4">{children}</main>
+      {isAdminRoute && <Sidebar />}
+      <main className={isAdminRoute ? "flex-1 p-4" : "flex-1"}>
+        {children}
+      </main>
     </div>
   );
 }

@@ -1,17 +1,5 @@
 
-// import DoctorDetails from "@/component/admin/Doctor/DoctorDetails";
 
-// interface PageProps {
-//   params: Promise<{
-//     id: string;
-//   }>;
-// }
-
-// export default async function Page({ params }: PageProps) {
-//   const { id } = await params;
-
-//   return <DoctorDetails id={id} />;
-// }
 
 "use client";
 

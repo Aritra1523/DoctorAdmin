@@ -11,9 +11,11 @@ import {
   DepartmentFormData,
   departmentSchema,
 } from "@/schema/departmentSchema/departmentSchema";
+import { useRouter } from "next/navigation";
 
 const useCreateDepartment = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
 
   const {
     register,
@@ -34,6 +36,7 @@ const useCreateDepartment = () => {
       });
 
       reset();
+       router.push("/deperatments/list");
     } catch (error: any) {
       Swal.fire({
         icon: "error",

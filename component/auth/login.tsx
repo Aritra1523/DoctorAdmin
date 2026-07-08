@@ -171,12 +171,7 @@ const Login = () => {
             {isSubmitting ? "Logging in..." : "Login"}
           </button>
 
-          {/* <div className={styles.signupPrompt}>
-            <span>Don&apos;t have an account?</span>
-            <Link href="/auth/register" className={styles.signupLink}>
-              Sign up
-            </Link>
-          </div> */}
+        
         </form>
       </div>
     </div>

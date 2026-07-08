@@ -1,6 +1,7 @@
 "use client";
 
-import { TabFilter } from "@/app/(adminPage)/appointments/page";
+import { TabFilter } from "./AppointmentsPage";
+
 
 interface Props {
   search: string;
