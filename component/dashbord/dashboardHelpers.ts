@@ -1,4 +1,3 @@
-// components/dashboard/dashboardHelpers.ts
 
 // ---------- Helpers ----------
 export const initials = (name: string) =>

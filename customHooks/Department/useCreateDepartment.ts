@@ -36,13 +36,16 @@ const useCreateDepartment = () => {
       });
 
       reset();
-       router.push("/deperatments/list");
+      router.push("/deperatments/list");
     } catch (error: any) {
       Swal.fire({
         icon: "error",
         title: error,
       });
     }
+  };
+  const handleBack = () => {
+    router.push("/deperatments/list");
   };
 
   return {
@@ -52,6 +55,7 @@ const useCreateDepartment = () => {
     errors,
     reset,
     isSubmitting,
+    handleBack,
   };
 };
 

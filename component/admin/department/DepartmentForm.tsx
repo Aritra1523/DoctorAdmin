@@ -14,8 +14,15 @@ const DepartmentForm = ({
   selectedDepartment,
   clearSelectedDepartment,
 }: DepartmentFormProps) => {
-  const { register, handleSubmit, onSubmit, errors, isSubmitting, reset } =
-    useCreateDepartment();
+  const {
+    register,
+    handleSubmit,
+    onSubmit,
+    errors,
+    isSubmitting,
+    reset,
+    handleBack,
+  } = useCreateDepartment();
 
   const { handleUpdate } = useUpdateDepartment();
 
@@ -140,7 +147,9 @@ const DepartmentForm = ({
                   Cancel Edit
                 </button>
               )}
-
+              <button type="submit" style={styles.submitBtn} onClick={handleBack}>
+                Back
+              </button>
               <button
                 type="submit"
                 disabled={isSubmitting}

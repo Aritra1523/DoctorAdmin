@@ -1,4 +1,5 @@
 
+
 "use client";
 
 interface ActionsProps {
@@ -56,7 +57,7 @@ export function DashboardActions({ accepted, pending, cancelled, total }: Action
   ];
 
   return (
-    <div className="grid grid-cols-2 gap-3.5">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
       {/* Quick actions */}
       <div className="bg-[#141417] border border-white/[0.07] rounded-xl px-5 py-[18px]">
         <div className="mb-4">
