@@ -49,17 +49,18 @@ const styles = {
     display: "flex",
     alignItems: "flex-start",
     justifyContent: "space-between",
-    flexWrap: "wrap",
+    flexWrap: "wrap" as const, 
     gap: "16px",
   },
   headerRight: {
     display: "flex",
     alignItems: "center",
     gap: "16px",
-    flexWrap: "wrap",
+    flexWrap: "wrap" as const,
   },
   headerTitle: { 
     margin: 0, 
+    paddingTop: "10px",
     fontSize: "24px", 
     fontWeight: 600, 
     color: "#fff" 

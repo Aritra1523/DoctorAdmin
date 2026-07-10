@@ -1,5 +1,4 @@
 
-// ---------- Helpers ----------
 export const initials = (name: string) =>
   name
     .replace(/^Dr\.?\s*/i, "")

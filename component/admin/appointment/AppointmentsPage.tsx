@@ -139,7 +139,6 @@ export default function AppointmentsPage() {
   );
 }
 
-// Styles (you should move these to a separate CSS file)
 const styles = {
   wrapper: {
     maxWidth: 1400,

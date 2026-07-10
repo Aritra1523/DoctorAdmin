@@ -185,13 +185,13 @@ const doctorSlice = createSlice({
         if (updatedDoctor) {
           // Update in the doctors list
           const index = state.doctors.findIndex(
-            (doc) => doc._id === updatedDoctor.id,
+            (doc) => doc._id === updatedDoctor._id,
           );
           if (index !== -1) {
             state.doctors[index] = updatedDoctor;
           }
           // Update the single doctor if it's currently being viewed
-          if (state.doctor && state.doctor._id === updatedDoctor.id) {
+          if (state.doctor && state.doctor._id === updatedDoctor._id) {
             state.doctor = updatedDoctor;
           }
         }

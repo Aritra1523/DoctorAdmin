@@ -1,4 +1,4 @@
-import DoctorList from "@/component/admin/Doctor/DoctorList";
+import DoctorList from "@/component/admin/Doctor/DoctorList/DoctorList";
 
 const Page = () => {
   return <DoctorList />;
