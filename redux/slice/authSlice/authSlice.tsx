@@ -51,47 +51,9 @@ const initialState: AuthState = {
 };
 
 // ----- Async Thunks -----
-export const registerUser = createAsyncThunk<
-  RegisterResponse,
-  RegisterPayload,
-  { rejectValue: string }
->("auth/register", async (userData, { rejectWithValue }) => {
-  try {
-    const response = await axiosInstance.post<RegisterResponse>(
-      endpoints.register,
-      userData,
-    );
-    return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      return rejectWithValue(
-        error.response?.data?.message || "Registration failed",
-      );
-    }
-    return rejectWithValue("Something went wrong");
-  }
-});
 
-export const verifyOtp = createAsyncThunk<
-  OtpResponse,
-  VerifyOtpPayload,
-  { rejectValue: string }
->("auth/otp", async (otpdata, { rejectWithValue }) => {
-  try {
-    const response = await axiosInstance.post<OtpResponse>(
-      endpoints.otp,
-      otpdata,
-    );
-    return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      return rejectWithValue(
-        error.response?.data?.message || "OTP verification failed",
-      );
-    }
-    return rejectWithValue("Something went wrong");
-  }
-});
+
+
 
 export const loginUser = createAsyncThunk<
   LoginResponse,
@@ -139,41 +101,7 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // ---- Register ----
-      .addCase(registerUser.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(registerUser.fulfilled, (state, { payload }) => {
-        state.loading = false;
-        // Assume payload.data contains the user object with id, email, etc.
-        state.user = payload.data;
-        state.error = null;
-        // Save immediately
-        saveState(state);
-      })
-      .addCase(registerUser.rejected, (state, { payload }) => {
-        state.loading = false;
-        state.error = payload ?? "Registration failed";
-      })
-
-      // ---- Verify OTP ----
-      .addCase(verifyOtp.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(verifyOtp.fulfilled, (state) => {
-        state.loading = false;
-        state.isOtpVerified = true;
-        state.error = null;
-        saveState(state);
-      })
-      .addCase(verifyOtp.rejected, (state, { payload }) => {
-        state.loading = false;
-        state.error = payload ?? "OTP verification failed";
-      })
-
-      // ---- Login ----
+// ---- Login ----
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -215,3 +143,5 @@ const authSlice = createSlice({
 
 export const { logout, clearError, rehydrate } = authSlice.actions;
 export default authSlice.reducer;
+
+

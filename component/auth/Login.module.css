@@ -391,3 +391,50 @@
     stroke-dashoffset: 0;
   }
 }
+@media (min-width: 900px) {
+  .page {
+    flex-direction: row;
+    align-items: center;      /* NEW: vertical centering */
+    justify-content: center;  /* NEW: horizontal centering */
+  }
+
+  .aside {
+    width: 44%;
+    min-width: 360px;
+    max-width: 540px;
+    padding: 2.5rem 3rem 3rem;
+    justify-content: space-between;
+    border-radius: 20px 0 0 20px;   /* NEW: rounds the combined card */
+  }
+
+  .illustrationWrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    animation: scaleFade 0.7s cubic-bezier(0.21, 0.91, 0.43, 1) 0.15s both;
+  }
+
+  .illustration {
+    width: 100%;
+    max-width: 380px;
+    height: auto;
+  }
+
+  .tagline {
+    font-size: 2.1rem;
+  }
+
+  .formPanel {
+    flex: 1;
+    padding: 3rem;
+    max-width: 640px;               /* NEW: caps how wide the form side gets */
+    border-radius: 0 20px 20px 0;   /* NEW */
+  }
+
+  /* NEW: gives the whole thing a visible edge as one unit, since it's
+     no longer touching the viewport edges */
+  .page {
+    box-shadow: 0 20px 60px -20px rgba(16, 40, 38, 0.25);
+  }
+}

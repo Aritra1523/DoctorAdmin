@@ -1,8 +1,7 @@
 export const endpoints = {
-  // otp: "auth/verify_otp",
   login: "auth/login",
-  // doctorList: "user/doctor/list",
-  // doctorAppointment: "doctor/appointment",
+  logout: "user/logout",
+  
   // Admin
   departmentCreate: "admin/doctor/department",
   departmentList: "admin/departments/list",

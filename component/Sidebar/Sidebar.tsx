@@ -1,10 +1,11 @@
-
 "use client";
 
+import { logout } from "@/redux/slice/authSlice/authSlice";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-
+import { useDispatch, UseDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
 // ── Types ──────────────────────────────────────────────
 interface NavItem {
   label: string;
@@ -157,7 +158,8 @@ const Sidebar = () => {
     pathname === href || pathname.startsWith(href + "/");
 
   const closeMobile = () => setIsOpen(false);
-
+  const dispatch = useDispatch();
+  const router = useRouter();
   return (
     <>
       {/* Mobile top bar with hamburger */}
@@ -285,7 +287,8 @@ const Sidebar = () => {
         </div>
         <button
           onClick={() => {
-            /* handle logout */
+            dispatch(logout());
+            router.push("/auth/login");
           }}
           style={styles.logoutBtn}
           title="Logout"
@@ -369,61 +372,61 @@ const styles: Record<string, React.CSSProperties> = {
   },
 
   // Logo
- logo: {
-  padding: "16px 16px 14px",
-  borderBottom: "1px solid rgba(255,255,255,0.06)",
-  display: "flex",
-  alignItems: "center",
-  gap: 10,
-},
-logoIcon: {
-  fontSize: 20,
-  lineHeight: 1,
-},
-logoText: {
-  fontSize: 16,
-  fontWeight: 700,
-  background: "linear-gradient(135deg, #60a5fa, #3b82f6)",
-  WebkitBackgroundClip: "text",
-  WebkitTextFillColor: "transparent",
-  letterSpacing: "-0.5px",
-},
+  logo: {
+    padding: "16px 16px 14px",
+    borderBottom: "1px solid rgba(255,255,255,0.06)",
+    display: "flex",
+    alignItems: "center",
+    gap: 10,
+  },
+  logoIcon: {
+    fontSize: 20,
+    lineHeight: 1,
+  },
+  logoText: {
+    fontSize: 16,
+    fontWeight: 700,
+    background: "linear-gradient(135deg, #60a5fa, #3b82f6)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    letterSpacing: "-0.5px",
+  },
 
   // Nav
   nav: {
-  padding: "14px 10px",
-  display: "flex",
-  flexDirection: "column",
-  gap: 2,
-  flex: 1,
-},
-section: {
-  marginBottom: 16,
-},
-sectionLabel: {
-  fontSize: 10,
-  fontWeight: 600,
-  color: "#4b5563",
-  letterSpacing: "1.5px",
-  textTransform: "uppercase",
-  padding: "0 6px",
-  margin: "0 0 5px",
-},
+    padding: "14px 10px",
+    display: "flex",
+    flexDirection: "column",
+    gap: 2,
+    flex: 1,
+  },
+  section: {
+    marginBottom: 16,
+  },
+  sectionLabel: {
+    fontSize: 10,
+    fontWeight: 600,
+    color: "#4b5563",
+    letterSpacing: "1.5px",
+    textTransform: "uppercase",
+    padding: "0 6px",
+    margin: "0 0 5px",
+  },
 
   // Nav item
- navItem: {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  padding: "7px 10px",
-  borderRadius: 8,
-  textDecoration: "none",
-  cursor: "pointer",
-  transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
-  position: "relative",
-  background: "transparent",
-  border: "none",
-},
+  navItem: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "7px 10px",
+    borderRadius: 8,
+    textDecoration: "none",
+    cursor: "pointer",
+    transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+    position: "relative",
+    background: "transparent",
+    border: "none",
+  },
   navItemActive: {
     background:
       "linear-gradient(135deg, rgba(59,130,246,0.25), rgba(37,99,235,0.15))",
@@ -438,11 +441,11 @@ sectionLabel: {
     boxShadow: "0 8px 25px -5px rgba(0,0,0,0.5)",
   },
 
- navIconWrapper: {
-  display: "flex",
-  alignItems: "center",
-  gap: 10,
-},
+  navIconWrapper: {
+    display: "flex",
+    alignItems: "center",
+    gap: 10,
+  },
   navIcon: {
     display: "inline-flex",
     color: "#6b7280",
@@ -453,62 +456,62 @@ sectionLabel: {
     color: "#60a5fa",
     filter: "drop-shadow(0 0 6px rgba(59,130,246,0.4))",
   },
- navLabel: {
-  fontSize: 13,
-  fontWeight: 400,
-  color: "#9ca3af",
-  transition: "color 0.2s",
-},
-navLabelActive: {
-  fontSize: 13,
-  fontWeight: 500,
-  color: "#ffffff",
-  textShadow: "0 1px 2px rgba(0,0,0,0.3)",
-},
+  navLabel: {
+    fontSize: 13,
+    fontWeight: 400,
+    color: "#9ca3af",
+    transition: "color 0.2s",
+  },
+  navLabelActive: {
+    fontSize: 13,
+    fontWeight: 500,
+    color: "#ffffff",
+    textShadow: "0 1px 2px rgba(0,0,0,0.3)",
+  },
 
   // Badge
- badge: {
-  backgroundColor: "#ef4444",
-  color: "#fff",
-  fontSize: 10,
-  fontWeight: 700,
-  minWidth: 17,
-  height: 17,
-  borderRadius: 9,
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  padding: "0 5px",
-  boxShadow: "0 2px 8px rgba(239,68,68,0.4)",
-  transform: "scale(1)",
-  transition: "transform 0.2s",
-},
+  badge: {
+    backgroundColor: "#ef4444",
+    color: "#fff",
+    fontSize: 10,
+    fontWeight: 700,
+    minWidth: 17,
+    height: 17,
+    borderRadius: 9,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "0 5px",
+    boxShadow: "0 2px 8px rgba(239,68,68,0.4)",
+    transform: "scale(1)",
+    transition: "transform 0.2s",
+  },
 
   // User profile
- userProfile: {
-  marginTop: "auto",
-  padding: "12px 14px",
-  borderTop: "1px solid rgba(255,255,255,0.06)",
-  display: "flex",
-  alignItems: "center",
-  gap: 10,
-  background: "rgba(255,255,255,0.02)",
-  backdropFilter: "blur(4px)",
-},
+  userProfile: {
+    marginTop: "auto",
+    padding: "12px 14px",
+    borderTop: "1px solid rgba(255,255,255,0.06)",
+    display: "flex",
+    alignItems: "center",
+    gap: 10,
+    background: "rgba(255,255,255,0.02)",
+    backdropFilter: "blur(4px)",
+  },
   avatar: {
-  width: 32,
-  height: 32,
-  borderRadius: "50%",
-  background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  color: "#fff",
-  fontWeight: 600,
-  fontSize: 13,
-  boxShadow: "0 4px 12px rgba(59,130,246,0.3)",
-  flexShrink: 0,
-},
+    width: 32,
+    height: 32,
+    borderRadius: "50%",
+    background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "#fff",
+    fontWeight: 600,
+    fontSize: 13,
+    boxShadow: "0 4px 12px rgba(59,130,246,0.3)",
+    flexShrink: 0,
+  },
   avatarText: {
     lineHeight: 1,
   },
@@ -517,33 +520,33 @@ navLabelActive: {
     flexDirection: "column",
     overflow: "hidden",
   },
- userName: {
-  margin: 0,
-  fontSize: 13,
-  fontWeight: 500,
-  color: "#f3f4f6",
-  whiteSpace: "nowrap",
-  textOverflow: "ellipsis",
-  overflow: "hidden",
-},
+  userName: {
+    margin: 0,
+    fontSize: 13,
+    fontWeight: 500,
+    color: "#f3f4f6",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+  },
   userRole: {
-  margin: 0,
-  fontSize: 11,
-  color: "#6b7280",
-},
+    margin: 0,
+    fontSize: 11,
+    color: "#6b7280",
+  },
   logoutBtn: {
-  marginLeft: "auto",
-  background: "transparent",
-  border: "none",
-  color: "#6b7280",
-  cursor: "pointer",
-  padding: "6px",
-  borderRadius: "8px",
-  transition: "background 0.2s, color 0.2s",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-},
+    marginLeft: "auto",
+    background: "transparent",
+    border: "none",
+    color: "#6b7280",
+    cursor: "pointer",
+    padding: "6px",
+    borderRadius: "8px",
+    transition: "background 0.2s, color 0.2s",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 };
 
 export default Sidebar;

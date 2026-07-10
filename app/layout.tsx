@@ -35,10 +35,9 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <ConditionalLayout>
-        <ReduxProviderComponent>{children}</ReduxProviderComponent>
-
-        </ConditionalLayout>
+        <ReduxProviderComponent>
+          <ConditionalLayout>{children}</ConditionalLayout>
+        </ReduxProviderComponent>
       </body>
     </html>
   );

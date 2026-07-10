@@ -15,15 +15,25 @@ const initialState: DoctorState = {
   loading: false,
   error: null,
   success: false,
+  page: 1,
+  limit: 0,
+  total: 0,
+  totalPages: 1,
 };
+interface DoctorListParams {
+  page?: number;
+  limit?: number;
+}
 //Doctor List
 export const getDoctorList = createAsyncThunk<
   any,
-  void,
+  DoctorListParams | void,
   { rejectValue: string }
->("doctor/list", async (_, { rejectWithValue }) => {
+>("doctor/list", async (params, { rejectWithValue }) => {
   try {
-    const response = await axiosInstance.get(endpoints.adminDoctorList);
+    const response = await axiosInstance.get(endpoints.adminDoctorList,{ params: params?.page && params?.limit
+        ? { page: params.page, limit: params.limit }
+        : undefined,});
 
     return response.data;
   } catch (error) {
@@ -147,6 +157,14 @@ const doctorSlice = createSlice({
       .addCase(getDoctorList.fulfilled, (state, action) => {
         state.loading = false;
         state.doctors = action.payload.data;
+         const sentPage = action.meta.arg?.page;
+        const sentLimit = action.meta.arg?.limit;
+        state.page = action.payload.page ?? sentPage ?? 1;
+        state.limit = action.payload.limit ?? sentLimit ?? action.payload.data.length;
+        state.total = action.payload.total ?? action.payload.data.length;
+        state.totalPages =
+          action.payload.totalPages ??
+          Math.max(1, Math.ceil(state.total / (state.limit || 1)));
       })
 
       .addCase(getDoctorList.rejected, (state, action) => {

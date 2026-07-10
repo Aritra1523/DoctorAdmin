@@ -55,6 +55,10 @@ export interface DoctorState {
   loading: boolean;
   error: string | null;
   success: boolean;
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
 }
 
 export interface DoctorFormData {
