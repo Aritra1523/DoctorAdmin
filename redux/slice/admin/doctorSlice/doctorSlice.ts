@@ -1,3 +1,4 @@
+
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { AxiosError } from "axios";
@@ -161,7 +162,7 @@ const doctorSlice = createSlice({
         const sentLimit = action.meta.arg?.limit;
         state.page = action.payload.page ?? sentPage ?? 1;
         state.limit = action.payload.limit ?? sentLimit ?? action.payload.data.length;
-        state.total = action.payload.total ?? action.payload.data.length;
+        state.total = action.payload.totalItems ?? action.payload.total ?? action.payload.data.length;
         state.totalPages =
           action.payload.totalPages ??
           Math.max(1, Math.ceil(state.total / (state.limit || 1)));
@@ -229,12 +230,15 @@ const doctorSlice = createSlice({
       .addCase(deleteDoctor.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        // Remove the deleted doctor from the list using the id from the action meta
-        const deletedId = action.meta.arg; // the id passed to the thunk
+        // Remove from local list so UI updates instantly without re-fetch
+        const deletedId = action.meta.arg;
         state.doctors = state.doctors.filter((doc) => doc._id !== deletedId);
         if (state.doctor && state.doctor._id === deletedId) {
           state.doctor = null;
         }
+        // Keep total in sync so stat card stays correct
+        state.total = Math.max(0, state.total - 1);
+        state.totalPages = Math.max(1, Math.ceil(state.total / (state.limit || 1)));
       })
 
       .addCase(deleteDoctor.rejected, (state, action) => {
@@ -248,10 +252,12 @@ const doctorSlice = createSlice({
         state.error = null;
       })
 
-      .addCase(createDoctor.fulfilled, (state, action) => {
+      .addCase(createDoctor.fulfilled, (state) => {
         state.loading = false;
-        state.doctors.unshift(action.payload);
-        //state.doctors.push(action.payload);
+        // Do NOT mutate state.doctors — list is server-side paginated.
+        // DoctorList will re-fetch page 1 via onSuccess -> setPage(1).
+        state.total = state.total + 1;
+        state.totalPages = Math.max(1, Math.ceil(state.total / (state.limit || 1)));
       })
 
       .addCase(createDoctor.rejected, (state, action) => {

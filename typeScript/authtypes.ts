@@ -23,48 +23,6 @@ export interface AppointmentPayload {
   time: string;
 }
 
-
-
-// ================= USER =================
-
-export interface User {
-  id: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  address: string;
-  role?: string;
-}
-
-// ================= REGISTER =================
-
-export interface RegisterPayload {
-  first_name: string;
-  last_name: string;
-  email: string;
-  address: string;
-  password: string;
-  confirm_password: string;
-}
-
-export interface RegisterResponse {
-  status: boolean;
-  message: string;
-  data: User;
-}
-
-// ================= OTP =================
-
-export interface VerifyOtpPayload {
-  userId: string;
-  otp: string;
-}
-
-export interface OtpResponse {
-  status: boolean;
-  message: string;
-}
-
 // ================= LOGIN =================
 
 export interface LoginPayload {
@@ -85,20 +43,10 @@ export interface LoginResponse {
   };
 }
 
-// ================= AUTH STATE =================
 
-export interface AuthState {
-  user: User | null;
-  token: string | null;
-  role?: string | null;
-  loading: boolean;
-  error: string | null;
-  isOtpVerified: boolean;
-}
 
 // ================= FORM TYPES =================
 
-export interface RegisterFormData extends RegisterPayload {}
 
 export interface LoginFormData {
   email: string;
@@ -110,15 +58,3 @@ export interface LoginFormErrors {
   password?: string;
 }
 
-export interface RegisterFormErrors {
-  first_name?: string;
-  last_name?: string;
-  email?: string;
-  address?: string;
-  password?: string;
-  confirm_password?: string;
-}
-
-export interface OtpFormData {
-  otp: string;
-}

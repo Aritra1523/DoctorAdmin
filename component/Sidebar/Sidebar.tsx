@@ -334,7 +334,7 @@ const styles: Record<string, React.CSSProperties> = {
     left: 0,
     right: 0,
     zIndex: 1100,
-    display: "flex",
+    // display: "flex",
     alignItems: "center",
     gap: 10,
     padding: "12px 16px",
