@@ -1,3 +1,6 @@
+
+
+
 "use client";
 
 import { useMemo } from "react";
@@ -12,13 +15,12 @@ import { DashboardActions } from "./DashboardActions";
 import { todayStr } from "./dashboardHelpers";
 
 export default function DashboardPage() {
-  const { doctors, loading: doctorsLoading } = useDoctorList();
+  const { doctors, loading: doctorsLoading, total: totalDoctors } = useDoctorList();
   const { appointments, loading: appointmentsLoading } = useAppointmentList();
-  const { departments } = useDepartmentList();
+  const { departments, loading: departmentsLoading } = useDepartmentList();
 
   const today = new Date().toDateString();
 
-  // All computed values
   const appointmentsToday = appointments.filter(
     (a: Appointment) => new Date(a.appointmentDate).toDateString() === today
   );
@@ -64,7 +66,6 @@ export default function DashboardPage() {
 
   return (
     <div className="bg-[#0a0a0c] min-h-screen px-4 sm:px-6 lg:px-8 py-5 lg:py-7 text-[#e2e8f0]">
-      {/* Topbar */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6 lg:mb-7 pt-2">
         <div>
           <div className="text-lg sm:text-[22px] font-semibold text-white">Dashboard</div>
@@ -77,17 +78,17 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Stats */}
       <DashboardStats
         doctors={doctors}
         departments={departments}
         appointmentsToday={appointmentsToday}
         accepted={accepted}
+        totalDoctors={totalDoctors}
         doctorsLoading={doctorsLoading}
         appointmentsLoading={appointmentsLoading}
+        departmentsLoading={departmentsLoading}
       />
 
-      {/* Recent & Department */}
       <DashboardRecent
         appointments={recentAppointments}
         deptBreakdown={deptBreakdown}
@@ -95,7 +96,6 @@ export default function DashboardPage() {
         loading={appointmentsLoading || doctorsLoading}
       />
 
-      {/* Actions & Status */}
       <DashboardActions
         accepted={accepted.length}
         pending={pending.length}

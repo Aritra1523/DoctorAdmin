@@ -1,7 +1,12 @@
+
+
+
+
 "use client";
 
 import { Appointment } from "@/typeScript/admin/Appointment/Appointment";
 import { AVATAR_COLORS, DEPT_COLORS, initials, statusBadge, formatTime } from "./dashboardHelpers";
+import { Skeleton } from "@/component/shared/Skeleton";
 
 interface RecentProps {
   appointments: Appointment[];
@@ -22,12 +27,27 @@ export function DashboardRecent({ appointments, deptBreakdown, maxDeptCount, loa
           </a>
         </div>
 
-        {loading && <div className="text-sm text-[#6b7280] py-4">Loading…</div>}
+        {loading &&
+          Array.from({ length: 5 }).map((_, i) => (
+            <div
+              key={i}
+              className="flex items-center justify-between py-2.5 border-b border-white/[0.05] last:border-b-0"
+            >
+              <Skeleton className="w-8 h-8 rounded-full shrink-0" />
+              <div className="flex-1 min-w-0 px-3">
+                <Skeleton className="h-3.5 w-32 mb-1.5" />
+                <Skeleton className="h-3 w-24" />
+              </div>
+              <Skeleton className="h-3 w-10 shrink-0" />
+              <div className="w-2.5 shrink-0" />
+              <Skeleton className="h-5 w-16 rounded-full shrink-0" />
+            </div>
+          ))}
         {!loading && appointments.length === 0 && (
           <div className="text-sm text-[#6b7280] py-4">No appointments yet.</div>
         )}
 
-        {appointments.map((a, i) => {
+        {!loading && appointments.map((a, i) => {
           const color = AVATAR_COLORS[i % AVATAR_COLORS.length];
           return (
             <div key={a._id} className="flex items-center justify-between py-2.5 border-b border-white/[0.05] last:border-b-0">
@@ -60,12 +80,20 @@ export function DashboardRecent({ appointments, deptBreakdown, maxDeptCount, loa
           </a>
         </div>
 
-        {loading && <div className="text-sm text-[#6b7280] py-4">Loading…</div>}
+        {loading &&
+          Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className="flex items-center gap-2.5 py-[9px] border-b border-white/[0.05] last:border-b-0">
+              <Skeleton className="w-2 h-2 rounded-full shrink-0" />
+              <Skeleton className="h-3.5 w-24 flex-1" />
+              <Skeleton className="h-1 flex-1 rounded-full" />
+              <Skeleton className="h-3 w-6" />
+            </div>
+          ))}
         {!loading && deptBreakdown.length === 0 && (
           <div className="text-sm text-[#6b7280] py-4">No doctors yet.</div>
         )}
 
-        {deptBreakdown.map((d, i) => {
+        {!loading && deptBreakdown.map((d, i) => {
           const color = DEPT_COLORS[i % DEPT_COLORS.length];
           const pct = Math.round((d.count / maxDeptCount) * 100);
           return (

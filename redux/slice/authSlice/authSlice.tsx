@@ -3,14 +3,10 @@ import axios from "axios";
 import axiosInstance from "@/api/baseURL/baseurl";
 import { endpoints } from "@/api/endpoints/endpoints";
 import {
-  RegisterPayload,
-  RegisterResponse,
-  VerifyOtpPayload,
-  OtpResponse,
+
   LoginPayload,
   LoginResponse,
   AuthState,
-  User,
 } from "@/typeScript/authtypes";
 import { getCookie } from "cookies-next";
 import { setCookie } from "cookies-next/client";

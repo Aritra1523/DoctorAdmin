@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useMemo, useState } from "react";
@@ -8,6 +9,7 @@ import AppointmentFilters from "@/component/admin/appointment/AppointmentFilters
 import AppointmentTable from "@/component/admin/appointment/AppointmentTable";
 import CancelConfirmModal from "@/component/admin/appointment/CancelConfirmModal";
 import AppointmentCardGrid from "@/component/admin/appointment/AppointmentCardGrid";
+import AppointmentsPageSkeleton from "./AppointmentsPageSkeleton";
 
 export type TabFilter = "all" | "pending" | "completed" | "cancelled";
 export type ViewMode = "card" | "table";
@@ -54,6 +56,10 @@ export default function AppointmentsPage() {
     await handleCancel(cancelTargetId);
     closeCancel();
   };
+
+  if (loading) {
+    return <AppointmentsPageSkeleton />;
+  }
 
   return (
     <div style={styles.wrapper}>
@@ -102,28 +108,20 @@ export default function AppointmentsPage() {
         counts={counts}
       />
 
-      {/* Loading */}
-      {loading && (
-        <div style={styles.center}>
-          <div style={styles.spinner} />
-          <p style={styles.loadingText}>Loading appointments…</p>
-        </div>
-      )}
-
       {/* Error */}
-      {!loading && error && (
+      {error && (
         <div style={styles.errorBox}>⚠️ {error}</div>
       )}
 
       {/* Empty */}
-      {!loading && !error && filtered.length === 0 && (
+      {!error && filtered.length === 0 && (
         <div style={styles.center}>
           <p style={styles.emptyText}>No appointments found.</p>
         </div>
       )}
 
       {/* Card / Table view */}
-      {!loading && !error && filtered.length > 0 && (
+      {!error && filtered.length > 0 && (
         viewMode === "card"
           ? <AppointmentCardGrid appointments={filtered} onCancel={openCancel} />
           : <AppointmentTable appointments={filtered} onCancel={openCancel} />
