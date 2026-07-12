@@ -2,21 +2,29 @@
 
 import { TabFilter } from "./AppointmentsPage";
 
-
 interface Props {
-  counts: { all: number; pending: number; completed: number; cancelled: number };
+  counts: {
+    all: number;
+    pending: number;
+    completed: number;
+    cancelled: number;
+  };
   activeTab: TabFilter;
   onTabChange: (tab: TabFilter) => void;
 }
 
 const CARDS: { key: TabFilter; label: string; apiTag: string }[] = [
-  { key: "all",       label: "All Appointments", apiTag: "AppoinmentList"    },
-  { key: "pending",   label: "Pending",           apiTag: "AppoinmentList"    },
-  { key: "completed", label: "Completed",          apiTag: "AcceptList"        },
-  { key: "cancelled", label: "Cancelled",          apiTag: "Cancel_appoinment" },
+  { key: "all", label: "All Appointments", apiTag: "AppoinmentList" },
+  { key: "pending", label: "Pending", apiTag: "AppoinmentList" },
+  { key: "completed", label: "Completed", apiTag: "AcceptList" },
+  { key: "cancelled", label: "Cancelled", apiTag: "Cancel_appoinment" },
 ];
 
-export default function AppointmentStatCards({ counts, activeTab, onTabChange }: Props) {
+export default function AppointmentStatCards({
+  counts,
+  activeTab,
+  onTabChange,
+}: Props) {
   return (
     <div style={styles.grid}>
       {CARDS.map((card) => {
@@ -59,7 +67,13 @@ const styles: Record<string, React.CSSProperties> = {
     background: "#0d1829",
   },
   label: { fontSize: 12, color: "#8a8a8a" },
-  value: { fontSize: 26, fontWeight: 500, color: "#fff", lineHeight: 1, marginTop: 4 },
+  value: {
+    fontSize: 26,
+    fontWeight: 500,
+    color: "#fff",
+    lineHeight: 1,
+    marginTop: 4,
+  },
   apiTag: {
     fontFamily: "monospace",
     fontSize: 9.5,

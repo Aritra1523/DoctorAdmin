@@ -4,7 +4,7 @@ import useCreateDoctor from "@/customHooks/doctor/useAdd";
 import useDepartmentList from "@/customHooks/Department/useDepartmentList";
 
 interface Props {
-  onSuccess?: () => void; // ← new
+  onSuccess?: () => void; 
 }
 
 const DoctorAdd = ({ onSuccess }: Props) => {
@@ -20,7 +20,7 @@ const DoctorAdd = ({ onSuccess }: Props) => {
 
   const handleSubmitForm = async (data: any) => {
     await createDoctor(data);
-    onSuccess?.(); // ← closes modal after create
+    onSuccess?.();
   };
 
   return (

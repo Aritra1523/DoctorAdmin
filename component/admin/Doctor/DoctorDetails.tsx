@@ -1,12 +1,10 @@
-
-
 "use client";
 
 import { Doctor } from "@/typeScript/admin/crud";
 
 interface Props {
   doctor: Doctor;
-  departmentName?: string; // optional – if not provided, fallback to ID or "—"
+  departmentName?: string; 
 }
 
 const Field = ({ label, value }: { label: string; value: React.ReactNode }) => (
@@ -19,7 +17,6 @@ const Field = ({ label, value }: { label: string; value: React.ReactNode }) => (
 );
 
 const DoctorDetails = ({ doctor, departmentName }: Props) => {
-  // Use the human-readable name if available; otherwise fallback to ID or dash
   const displayDepartment = departmentName || doctor.departmentId || "—";
 
   return (

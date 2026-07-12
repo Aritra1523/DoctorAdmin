@@ -3,12 +3,11 @@ import axios from "axios";
 import axiosInstance from "@/api/baseURL/baseurl";
 import { endpoints } from "@/api/endpoints/endpoints";
 import {
-
   LoginPayload,
   LoginResponse,
   AuthState,
 } from "@/typeScript/authtypes";
-import { getCookie } from "cookies-next";
+import { deleteCookie, getCookie } from "cookies-next";
 import { setCookie } from "cookies-next/client";
 import path from "path";
 import { toast } from "react-toastify";
@@ -31,8 +30,9 @@ const saveState = (state: AuthState) => {
   try {
     const serialized = JSON.stringify(state);
     localStorage.setItem("authState", serialized);
-  } catch {
+  } catch(error) {
     // ignore
+    console.log(error)
   }
 };
 
@@ -47,9 +47,6 @@ const initialState: AuthState = {
 };
 
 // ----- Async Thunks -----
-
-
-
 
 export const loginUser = createAsyncThunk<
   LoginResponse,
@@ -82,6 +79,13 @@ const authSlice = createSlice({
       state.token = null;
       state.isOtpVerified = false;
       state.error = null;
+      localStorage.removeItem("authState");
+      localStorage.removeItem("accessToken");
+
+      deleteCookie("token", { path: "/" });
+      deleteCookie("refresh-token", { path: "/" });
+      deleteCookie("role", { path: "/" });
+      deleteCookie("user", { path: "/" });
       localStorage.removeItem("authState");
     },
     clearError: (state) => {

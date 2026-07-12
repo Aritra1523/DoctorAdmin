@@ -10,7 +10,7 @@ export function proxy(request: NextRequest) {
     pathname.startsWith("/dashbord") ||
     pathname.startsWith("/doctors") ||
     pathname.startsWith("/appointments") ||
-    pathname.startsWith("/departments");
+    pathname.startsWith("/deperatments");
 
   if (!token && isProtectedRoute) {
     const loginUrl = new URL("/auth/login", request.url);
@@ -27,5 +27,5 @@ export function proxy(request: NextRequest) {
 }
 //Looked Route
 export const config = {
-  matcher: ["/dashbord", "/doctors", "/appointments", "/departments", "/auth"],
+  matcher: ["/dashbord", "/doctors", "/appointments", "/deperatments", "/auth"],
 };

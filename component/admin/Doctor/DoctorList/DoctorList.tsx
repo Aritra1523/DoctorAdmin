@@ -1,6 +1,3 @@
-
-
-
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -26,15 +23,11 @@ const DoctorList = () => {
   const [showAdd, setShowAdd] = useState(false);
   const [page, setPage] = useState(1);
   const PAGE_SIZE = 5;
-  // The backend has no "search" query param, so a real cross-page search
-  // means fetching every doctor at once instead of just the current page.
   const SEARCH_FETCH_LIMIT = 1000;
 
   const isSearching = search.trim().length > 0;
 
-  // Server-side paginated fetch: GET admin/doctor/list?page=&limit=
-  // While searching we fetch the full list (page 1, large limit) so matches
-  // from every page show up, not just whatever page happened to be open.
+  
   const { doctors, loading, error, total, totalPages } = useDoctorList(
     isSearching ? 1 : page,
     isSearching ? SEARCH_FETCH_LIMIT : PAGE_SIZE
@@ -47,8 +40,7 @@ const DoctorList = () => {
     return new Map(departments.map((dept) => [dept._id, dept.name]));
   }, [departments]);
 
-  // Jump back to page 1 whenever the search term changes so we never end up
-  // on a page that no longer exists for the new result set.
+  
   useEffect(() => {
     setPage(1);
   }, [search]);
@@ -58,9 +50,7 @@ const DoctorList = () => {
     [doctors, search]
   );
 
-  // When searching, `doctors` already holds the whole list, so we paginate
-  // the filtered results ourselves. When not searching, `doctors` is just
-  // the current server page and searchFiltered === doctors (empty search).
+
   const filtered = isSearching
     ? searchFiltered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
     : searchFiltered;
@@ -73,9 +63,6 @@ const DoctorList = () => {
     setSearch(value);
   };
 
-  // Only show the full-page skeleton before any data has ever loaded.
-  // Later refetches (e.g. switching into/out of search mode) keep the
-  // existing table + input on screen so typing never loses focus.
   if (loading && doctors.length === 0) return <DoctorListSkeleton />;
   if (error) return <p className="p-8 text-red-400">{error}</p>;
 

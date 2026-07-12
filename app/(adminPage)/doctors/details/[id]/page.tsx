@@ -1,6 +1,3 @@
-
-
-
 "use client";
 
 import useDoctorAppointment from "@/customHooks/AppointmentList/useDoctorAppointment";
