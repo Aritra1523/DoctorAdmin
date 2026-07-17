@@ -1,24 +1,25 @@
 export const endpoints = {
-  login: "auth/login",
-  logout: "user/logout",
+  login: "/auth/login",
+  logout: "/user/logout",
   
   // Admin
-  departmentCreate: "admin/doctor/department",
-  departmentList: "admin/departments/list",
-  departmentUpdate: "admin/department/update",
-  departmentDelete: "admin/department/delete",
+  departmentCreate: "/admin/doctor/department",
+  departmentList: "/admin/departments/list",
+  departmentUpdate: "/admin/department/update",
+  departmentDelete: "/admin/department/delete",
 
   // Doctor
-  adminDoctorList: "admin/doctor/list",
-  doctorDetails: "admin/doctor/details",
-  doctorUpdate: "admin/doctor/update",
-  doctorDelete: "admin/doctor/delete",
-  doctorAdd: "admin/doctor/create",
+  adminDoctorList: "/admin/doctor/list",
+  doctorDetails: "/admin/doctor/details",
+  doctorUpdate: "/admin/doctor/update",
+  doctorDelete: "/admin/doctor/delete",
+  doctorAdd: "/admin/doctor/create",
 
   //Appointments
-  appointmentList: "appointment/list",
+  appointmentList: "/appointment/list",
   doctorAppointment: "/admin/doctor/appointment",
   cancelAppointment: "/admin/doctor/appointment/cancelld",
 
-  acceptedlist:"/admin/appointment/acceptedlist"
+  acceptedlist:"/admin/appointment/acceptedlist",
+  accept:"admin/doctor/appointment"
 };

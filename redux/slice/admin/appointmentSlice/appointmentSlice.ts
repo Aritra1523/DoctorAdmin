@@ -64,7 +64,7 @@ export const cancelAppointment = createAsyncThunk(
   "appointment/cancel",
   async (appointmentId: string, { rejectWithValue }) => {
     try {
-      await axiosInstance.get(
+      await axiosInstance.put(
         `/admin/doctor/appointment/cancelld/${appointmentId}`,
       );
 
