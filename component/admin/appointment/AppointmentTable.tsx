@@ -5,6 +5,7 @@ import StatusPill from "@/component/admin/shared/StatusPill";
 interface Props {
   appointments: any[];
   onCancel: (id: string) => void;
+  onAccept: (id: string) => void;
 }
 
 const AVATAR_COLORS = [
@@ -39,7 +40,7 @@ const HEADERS = [
   "Action",
 ];
 
-export default function AppointmentTable({ appointments, onCancel }: Props) {
+export default function AppointmentTable({ appointments, onCancel, onAccept }: Props) {
   return (
     <div style={styles.card}>
       <div style={styles.cardHead}>
@@ -62,6 +63,7 @@ export default function AppointmentTable({ appointments, onCancel }: Props) {
             {appointments.map((a: any, index: number) => {
               const av = getAvatar(a.name);
               const isCancelled = a.status?.toLowerCase() === "cancelled";
+              const isPending = a.status?.toLowerCase() === "pending";
               return (
                 <tr key={a._id}>
                   <td
@@ -110,16 +112,26 @@ export default function AppointmentTable({ appointments, onCancel }: Props) {
                     <StatusPill status={a.status} />
                   </td>
                   <td style={{ ...styles.td, textAlign: "right" }}>
-                    <button
-                      style={{
-                        ...styles.cancelBtn,
-                        ...(isCancelled ? styles.cancelDisabled : {}),
-                      }}
-                      disabled={isCancelled}
-                      onClick={() => !isCancelled && onCancel(a._id)}
-                    >
-                      {isCancelled ? "Cancelled" : "Cancel"}
-                    </button>
+                    <div style={styles.actionGroup}>
+                      {isPending && (
+                        <button
+                          style={styles.acceptBtn}
+                          onClick={() => onAccept(a._id)}
+                        >
+                          Accept
+                        </button>
+                      )}
+                      <button
+                        style={{
+                          ...styles.cancelBtn,
+                          ...(isCancelled ? styles.cancelDisabled : {}),
+                        }}
+                        disabled={isCancelled}
+                        onClick={() => !isCancelled && onCancel(a._id)}
+                      >
+                        {isCancelled ? "Cancelled" : "Cancel"}
+                      </button>
+                    </div>
                   </td>
                 </tr>
               );
@@ -171,6 +183,7 @@ const styles: Record<string, React.CSSProperties> = {
     verticalAlign: "middle",
   },
   patCell: { display: "flex", alignItems: "center", gap: 10 },
+  actionGroup: { display: "flex", gap: 8, justifyContent: "flex-end" },
   avatar: {
     width: 32,
     height: 32,
@@ -184,6 +197,17 @@ const styles: Record<string, React.CSSProperties> = {
   },
   patName: { fontSize: 13, fontWeight: 500, color: "#fff" },
   patId: { fontSize: 11, color: "#8a8a8a", marginTop: 1 },
+  acceptBtn: {
+    padding: "5px 12px",
+    borderRadius: 6,
+    fontSize: 11.5,
+    fontWeight: 500,
+    cursor: "pointer",
+    border: "0.5px solid #163322",
+    background: "#0d1f14",
+    color: "#4ade80",
+    fontFamily: "Inter, sans-serif",
+  },
   cancelBtn: {
     padding: "5px 12px",
     borderRadius: 6,

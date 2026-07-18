@@ -55,6 +55,20 @@ export const getDoctorAppointment = createAsyncThunk(
     }
   },
 );
+//Accept  Appointment
+export const acceptAppointment = createAsyncThunk(
+  "appointment/accept",
+  async (appointmentId: string, { rejectWithValue }) => {
+    try {
+      await axiosInstance.put(`/admin/doctor/appointment/${appointmentId}`);
+      return appointmentId;
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to accept appointment",
+      );
+    }
+  },
+);
 
 /* 
    Cancel Appointment
@@ -149,6 +163,26 @@ const appointmentSlice = createSlice({
         state.error = action.payload as string;
       })
 
+      
+      .addCase(acceptAppointment.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(
+        acceptAppointment.fulfilled,
+        (state, action: PayloadAction<string>) => {
+          state.loading = false;
+          state.appointments = state.appointments.map((a) =>
+            a._id === action.payload ? { ...a, status: "Accepted" } : a,
+          );
+          state.doctorAppointments = state.doctorAppointments.map((a) =>
+            a._id === action.payload ? { ...a, status: "Accepted" } : a,
+          );
+        },
+      )
+      .addCase(acceptAppointment.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
       /* 
          Cancel Appointment
        */

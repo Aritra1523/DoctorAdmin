@@ -9,7 +9,7 @@ import { UpdateDoctorPayload } from "@/typeScript/admin/doctor/doctor";
 import { Doctor } from "@/typeScript/admin/crud";
 
 interface Props {
-  doctor: Doctor; // ← full object, no fetch needed
+  doctor: Doctor; //  full object, no fetch needed
   onSuccess?: () => void;
 }
 
