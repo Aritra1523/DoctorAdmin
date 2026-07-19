@@ -1,9 +1,12 @@
+
 "use client";
 
 interface Props { status: string }
 
 const MAP: Record<string, { bg: string; color: string; label: string }> = {
   completed: { bg: "#0f2e1a", color: "#4ade80", label: "Completed" },
+  confirmed: { bg: "#0f2e1a", color: "#4ade80", label: "Confirmed" },
+  accepted:  { bg: "#0f2e1a", color: "#4ade80", label: "Confirmed" },
   pending:   { bg: "#332006", color: "#fbbf24", label: "Pending"   },
   cancelled: { bg: "#2e0f0f", color: "#f87171", label: "Cancelled" },
 };

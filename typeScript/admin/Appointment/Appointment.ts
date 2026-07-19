@@ -13,6 +13,7 @@ export interface Appointment {
 export interface AppointmentState {
  appointments: Appointment[];
    doctorAppointments: Appointment[];
+   acceptedAppointments: Appointment[];
    departmentWiseDoctors: any[];
    loading: boolean;
    error: string | null;

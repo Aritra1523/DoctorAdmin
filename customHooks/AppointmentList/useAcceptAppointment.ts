@@ -2,7 +2,11 @@
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { AppDispatch } from "@/redux/store/store";
-import { acceptAppointment } from "@/redux/slice/admin/appointmentSlice/appointmentSlice";
+import {
+  acceptAppointment,
+  getAcceptedAppointmentList,
+  getAppointmentList,
+} from "@/redux/slice/admin/appointmentSlice/appointmentSlice";
 
 const useAcceptAppointment = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -20,6 +24,11 @@ const useAcceptAppointment = () => {
 
     try {
       await dispatch(acceptAppointment(appointmentId)).unwrap();
+
+      // Refresh both lists so the Accepted tab reflects the real backend state
+      dispatch(getAcceptedAppointmentList());
+      dispatch(getAppointmentList());
+
       Swal.fire({ icon: "success", title: "Appointment Accepted", timer: 1500, showConfirmButton: false });
     } catch (err: any) {
       Swal.fire({ icon: "error", title: "Error", text: err });

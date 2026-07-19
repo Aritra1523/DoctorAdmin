@@ -5,6 +5,7 @@ import StatusPill from "@/component/admin/shared/StatusPill";
 interface Props {
   appointments: any[];
   onCancel: (id: string) => void;
+  onAccept: (id: string) => void;
 }
 
 const AVATAR_COLORS = [
@@ -22,12 +23,13 @@ function getAvatar(name: string = "") {
   return { initials, ...color };
 }
 
-export default function AppointmentCardGrid({ appointments, onCancel }: Props) {
+export default function AppointmentCardGrid({ appointments, onCancel, onAccept }: Props) {
   return (
     <div style={styles.grid}>
       {appointments.map((a: any, index: number) => {
         const av = getAvatar(a.patientName);
         const isCancelled = a.status?.toLowerCase() === "cancelled";
+        const isPending = a.status?.toLowerCase() === "pending";
 
         return (
           <div key={a._id} style={styles.card}>
@@ -57,8 +59,16 @@ export default function AppointmentCardGrid({ appointments, onCancel }: Props) {
               <InfoRow label="Time"   value={a.appointmentTime} />
             </div>
 
-            {/* Cancel button */}
+            {/* Accept / Cancel buttons */}
             <div style={styles.footer}>
+              {isPending && (
+                <button
+                  style={styles.acceptBtn}
+                  onClick={() => onAccept(a._id)}
+                >
+                  Accept
+                </button>
+              )}
               <button
                 style={{ ...styles.cancelBtn, ...(isCancelled ? styles.cancelDisabled : {}) }}
                 disabled={isCancelled}
@@ -119,9 +129,27 @@ const styles: Record<string, React.CSSProperties> = {
   patientName: { fontSize: 13, fontWeight: 500, color: "#fff" },
   patientId:   { fontSize: 11, color: "#8a8a8a", marginTop: 1 },
   body:   { padding: "8px 14px 14px", flex: 1 },
-  footer: { padding: "10px 14px", borderTop: "0.5px solid #232323", background: "#141414" },
+  footer: {
+    padding: "10px 14px",
+    borderTop: "0.5px solid #232323",
+    background: "#141414",
+    display: "flex",
+    gap: 8,
+  },
+  acceptBtn: {
+    flex: 1,
+    padding: "7px 12px",
+    borderRadius: 6,
+    fontSize: 12,
+    fontWeight: 500,
+    cursor: "pointer",
+    border: "0.5px solid #163322",
+    background: "#0d1f14",
+    color: "#4ade80",
+    fontFamily: "Inter, sans-serif",
+  },
   cancelBtn: {
-    width: "100%",
+    flex: 1,
     padding: "7px 12px",
     borderRadius: 6,
     fontSize: 12,
