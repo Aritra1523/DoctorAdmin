@@ -48,3 +48,32 @@ export interface UpdateDoctorPayload {
   departmentId: string;
   schedule: Schedule;
 }
+
+// DIAGNOSTIC CENTER
+
+export interface DiagnosticCenterPayload {
+  name: string;
+  address: string;
+  phone: string;
+  lat: number | string;
+  lng: number | string;
+}
+
+export interface DiagnosticCenter {
+  _id: string;
+  name: string;
+  address: string;
+  phone: string;
+  location: {
+    type: "Point";
+    coordinates: [number, number]; // [lng, lat]
+  };
+  distance?: number; // present when returned from the nearby-search endpoint
+}
+
+export interface DiagnosticCenterState {
+  centers: DiagnosticCenter[];
+  loading: boolean;
+  error: string | null;
+  success: boolean;
+}

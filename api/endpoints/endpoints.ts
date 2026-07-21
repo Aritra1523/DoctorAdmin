@@ -21,5 +21,8 @@ export const endpoints = {
   cancelAppointment: "/admin/doctor/appointment/cancelld",
 
   acceptedlist:"/admin/appointment/acceptedlist",
-  accept:"admin/doctor/appointment"
+  accept:"admin/doctor/appointment",
+
+  diagnosticCenterCreate:"/admin/diagnostic/create",
+  diagnosticCenterNearby:""
 };

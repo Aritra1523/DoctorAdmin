@@ -3,12 +3,14 @@ import doctorReducer from "../slice/admin/doctorSlice/doctorSlice"
 import departmentReducer from "../slice/admin/departmentSlice/departmentSlice";
 import authReducer from "../slice/authSlice/authSlice"
 import appointmentReducer from "../slice/admin/appointmentSlice/appointmentSlice"
+import diagnosticCenterReducer from "../slice/diagnosticCenterSlice/diagnosticCenterSlice"; 
 export const store=configureStore({
     reducer:{
          auth:authReducer ,
         doctor:doctorReducer,
         department:departmentReducer,
-        appointment: appointmentReducer
+        appointment: appointmentReducer,
+        diagnosticCenter: diagnosticCenterReducer,
     }
 })
 
